@@ -1,36 +1,55 @@
 #include <stdio.h>
 
 // Desafio Batalha Naval - MateCheck
-// Este código inicial serve como base para o desenvolvimento do sistema de Batalha Naval.
 // Siga os comentários para implementar cada parte do desafio.
+
+#define LETRAS 11
+#define LINHAS 10
+#define COLUNAS 11
+#define TAMANHO 3
+#define EMBARCACAO 3
 
 int main() {
     // Nível Novato - Posicionamento dos Navios
-    // Sugestão: Declare uma matriz bidimensional para representar o tabuleiro (Ex: int tabuleiro[5][5];).
-    // Sugestão: Posicione dois navios no tabuleiro, um verticalmente e outro horizontalmente.
-    // Sugestão: Utilize `printf` para exibir as coordenadas de cada parte dos navios.
  
     printf("==========TABULEIRO BATALHA NAVAL==========\n\n");
     char letras [11] = {' ','A','B','C','D','E','F','G','H','I','J'};
-    int numeros [10][11] = {
-        {1,0,0,0,0,0,0,0,0,0,0},
-        {2,0,0,0,0,0,0,0,0,0,0},
-        {3,0,0,0,0,0,0,0,0,0,0},
-        {4,0,0,0,0,0,0,0,0,0,0},
-        {5,0,0,0,0,0,0,0,0,0,0},
-        {6,0,0,0,0,0,0,0,0,0,0},
-        {7,0,0,0,0,0,0,0,0,0,0},
-        {8,0,0,0,0,0,0,0,0,0,0},
-        {9,0,0,0,0,0,0,0,0,0,0},
-        {10,0,0,0,0,0,0,0,0,0,0},
+    int numeros [10][11];
 
-    };
+//====================================================== 
 
-    
+//Print das letras dos Tabuleiro
 
-    int tamanho_embarcacao = 3; // - Variavel para identificar quantas casas ocupa a embarcação
-    int embarcacao = 3; // - Posição ocupada pela embarcação
+    printf("*** Tabuleiro Vazio ***\n\n");
+    for (int i = 0; i < LETRAS; i++)
+    {
+        printf("%c ", letras[i]);
+    }
+    printf("\n");
+//======================================================    
 
+// Declara e imprime a matriz 10 x 10
+    for (int i = 0; i < LINHAS; i++)
+    {   numeros[i][0] = i+1;
+        for (int j = 1; j < COLUNAS; j++)
+        {
+            numeros[i][j] = 0;
+        }
+    }
+    for (int i = 0; i < LINHAS; i++)
+    {
+        for (int j = 0; j < COLUNAS; j++)
+        {
+            printf("%d ", numeros[i][j]);
+        }
+        printf("\n");
+    }
+    printf("\n");
+
+
+//========================================================
+
+//Coordenadas para posicionamento
         //HORIZONTAL
     int linhaH = 3; // - Posição inicial da embarcação referente a linha
     int colunaH = 3;// - Posição inicial da embarcação referente a coluna
@@ -39,11 +58,15 @@ int main() {
     int linhaV = 5; // - Posição inicial da embarcação referente a linha
     int colunaV = 7;// - Posição inicial da embarcação referente a coluna
 
-        //CHECK POSIÇÃO HORIZONTAL
+//========================================================
+
+//Check de colisao e sobreposição
+
+//CHECK POSIÇÃO HORIZONTAL
     int orientacaoH =
-        (linhaH >= 0 && linhaH < 10) &&
+        (linhaH >= 0 && linhaH <= 10) &&
         (colunaH >= 1 && colunaH <= 10) &&
-        (colunaH + tamanho_embarcacao - 1 <= 10);
+        (colunaH + TAMANHO - 1 <= 10);
 
     if(!orientacaoH){
         printf("Erro! Embarcação Horizontal fora do tabuleiro.\n");
@@ -51,16 +74,16 @@ int main() {
     }
         //CHECK POSIÇÃO VERTICAL
     int orientacaoV =
-        (linhaV >= 0 && linhaV < 10) &&
+        (linhaV >= 0 && linhaV <= 10) &&
         (colunaV >= 1 && colunaV <= 10) &&
-        (linhaV + tamanho_embarcacao - 1 <= 9);
+        (linhaV + TAMANHO - 1 <= 9);
 
     if(!orientacaoV){
         printf("Erro! Embarcação Vertical fora do tabuleiro.\n");
         return 0;
     }
         //CHECK COLISÃO H
-    for (int i = 0; i < tamanho_embarcacao; i++)
+    for (int i = 0; i < TAMANHO; i++)
     {
         if(numeros[linhaH][colunaH + i] != 0){
             printf("Erro! Embarcação Horizontal sobreposta\n");
@@ -70,13 +93,13 @@ int main() {
     
 
         // - Posiciona H
-    for (int i = 0; i < tamanho_embarcacao; i++)
+    for (int i = 0; i < TAMANHO; i++)
     {
-        numeros[linhaH][colunaH + i] = embarcacao;
+        numeros[linhaH][colunaH + i] = EMBARCACAO;
     }
 
         //CHECK COLISÃO V   
-    for (int i = 0; i < tamanho_embarcacao; i++)
+    for (int i = 0; i < TAMANHO; i++)
     {
         if(numeros[linhaV + i][colunaV] != 0){
             printf("Erro! Embarcação Vertical sobreposta.\n");
@@ -84,32 +107,121 @@ int main() {
         }
     }
         // - Posiciona V
-    for (int i = 0; i < tamanho_embarcacao; i++)
+    for (int i = 0; i < TAMANHO; i++)
     {
-        numeros[linhaV + i][colunaV] = embarcacao;
+        numeros[linhaV + i][colunaV] = EMBARCACAO;
     }
-    
+//========================================================
 
-    printf("Posicionamento das embarcações:\n");
+// Apresentação do tabuleiro preenchido
 
-    for (int i = 0; i < 11; i++)
+    printf("Posicionamento das embarcações Horizontal e Vertical:\n\n");
+
+    for (int i = 0; i < LETRAS; i++)
     {
-           printf("%c ", letras[i]);
+        printf("%c ", letras[i]);
     }   printf("\n");
         
 
-    for (int l = 0; l < 10; l++)
-    {  for (int m = 0; m < 11; m++)
+    for (int i = 0; i < LINHAS; i++)
+    {  for (int j = 0; j < COLUNAS; j++)
     {
-        printf("%d ", numeros[l][m]);
+        printf("%d ", numeros[i][j]);
     }   printf("\n");
     }
-      
+    printf("\n");
 
+//========================================================
+      
     // Nível Aventureiro - Expansão do Tabuleiro e Posicionamento Diagonal
-    // Sugestão: Expanda o tabuleiro para uma matriz 10x10.
-    // Sugestão: Posicione quatro navios no tabuleiro, incluindo dois na diagonal.
-    // Sugestão: Exiba o tabuleiro completo no console, mostrando 0 para posições vazias e 3 para posições ocupadas.
+    //Embarcação na Diagonal Principal e Secundaria
+
+//Variaveis de posicionamento
+    int lin_diag1 = 0;
+    int col_diag1 = 1;
+
+//========================================================
+
+// CHECK DE POSIÇÃO E COLISÃO
+
+    int orientacao_diag1 = 
+    (lin_diag1 >= 0 && lin_diag1 <= 10) &&
+    (col_diag1 >= 1 && col_diag1 <= 10) &&
+    (lin_diag1 + 1 <=10 && col_diag1 +1 <= 10);
+
+    if(!orientacao_diag1){
+        printf("Erro! Embarcação Diagonal Principal fora do tabuleiro.\n");
+        return 0;
+    }
+    for (int i = 0; i < TAMANHO; i++)
+    {
+        if(numeros[lin_diag1 + i][col_diag1 + i] != 0){
+            printf("Erro! Embarcação Diagonal Principal Sobrepostas.\n");
+            return 0;
+        }
+    }
+//========================================================
+
+//Posiciona embarcação na diagonal principal
+
+    for (int i = 0; i < TAMANHO; i++)
+    {   
+         numeros[lin_diag1 + i][col_diag1 + i] = EMBARCACAO;   
+    }   
+
+//========================================================
+
+//Posicionamento da embarcação na Diagonal Secundaria
+
+//Variaveis de posicionamento
+    int lin_diag2 = 6;
+    int col_diag2 = 10;
+
+//========================================================
+
+// CHECK DE POSIÇÃO E COLISÃO
+    int orientacao_diag2 = 
+    (lin_diag2 >= 0 && lin_diag2 <= 10) &&
+    (col_diag2 >= 1 && col_diag2 <= 10) &&
+    (lin_diag2 + 1 <= 10 && col_diag2 >= 0);
+
+    if(!orientacao_diag2){
+        printf("Erro! Embarcação Diagonal Secundaria fora do tabuleiro.\n.");
+        return 0;
+    }
+    for (int i = 0; i < TAMANHO; i++)
+    {
+        if(numeros[lin_diag2 + i][col_diag2 - i] != 0){
+            printf("Erro! Embarcação Diagonal Secundaria Sobrepostas.\n");
+            return 0;
+        }
+    }
+//========================================================
+
+//Posiciona embarcação na diagonal secundaria
+    int subtracao_coldiag2 = 0;
+    for (int i = 0; i < TAMANHO; i++)
+    {
+        numeros[lin_diag2 + i][col_diag2 - i] = EMBARCACAO;  
+    }
+//========================================================       
+// Apresentação do tabuleiro preenchido
+
+    printf("Posicionamento das embarcações Diagonal:\n\n");
+
+    for (int i = 0; i < LETRAS; i++)
+    {
+        printf("%c ", letras[i]);
+    }   printf("\n");
+        
+
+    for (int i = 0; i < LINHAS; i++)
+    {  for (int j = 0; j < COLUNAS; j++)
+    {
+        printf("%d ", numeros[i][j]);
+    }   printf("\n");
+    }
+    printf("\n");
 
     // Nível Mestre - Habilidades Especiais com Matrizes
     // Sugestão: Crie matrizes para representar habilidades especiais como cone, cruz, e octaedro.
