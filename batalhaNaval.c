@@ -1,7 +1,5 @@
 #include <stdio.h>
-
-// Desafio Batalha Naval - MateCheck
-// Siga os comentários para implementar cada parte do desafio.
+#include <stdlib.h> 
 
 #define LETRAS 11
 #define LINHAS 10
@@ -10,9 +8,8 @@
 #define EMBARCACAO 3
 #define ATAQUE 1
 
+
 int main() {
-    // Nível Novato - Posicionamento dos Navios
- 
     printf("==========TABULEIRO BATALHA NAVAL==========\n\n");
     char letras [11] = {' ','A','B','C','D','E','F','G','H','I','J'};
     int numeros [10][11];
@@ -133,9 +130,8 @@ int main() {
     printf("\n");
 
 //========================================================
-      
-    // Nível Aventureiro - Expansão do Tabuleiro e Posicionamento Diagonal
-    //Embarcação na Diagonal Principal e Secundaria
+
+//Embarcação na Diagonal Principal
 
 //Variaveis de posicionamento
     int lin_diag1 = 0;
@@ -171,6 +167,7 @@ int main() {
     }   
 
 //========================================================
+
 
 //Posicionamento da embarcação na Diagonal Secundaria
 
@@ -223,11 +220,22 @@ int main() {
     }   printf("\n");
     }
     printf("\n");
+        
+//========================================================       
+// Tabuleiro de Habilidades
 
-    // Nível Mestre - Habilidades Especiais com Matrizes
-   //========================================================       
+    int matrizHabilidade[LINHAS][COLUNAS];
+
+    for (int i = 0; i < LINHAS; i++)
+    {   matrizHabilidade[i][0] = i + 1;
+        for (int j = 1; j < COLUNAS; j++)
+        {
+            matrizHabilidade[i][j] = 0;
+        }
+    }
+    //========================================================       
     // Habilidade Cone
-
+    printf("==== Habilidade Cone ====\n\n");
     int matrizCone[5][5];
 
     for (int i = 0; i < 5; i++)
@@ -238,32 +246,20 @@ int main() {
         }
         
     }
-
-    int cone_x = 2, cone_y = 1; //Coordenada do inicio da Habilidade
-
-    for (int i = 0; i < 1; i++){
-        matrizCone[cone_y][cone_x] = ATAQUE;
-        for (int j = 0; j < 3; j++)
-        {
-            matrizCone[cone_y+1][(cone_x-1)+j] = ATAQUE;
-            for (int k = 0; k < 5; k++)
-            {
-                matrizCone[cone_y+2][(cone_x-2)+k] = ATAQUE;
-            } 
-        }
-    }
-    printf("==== Habilidade Cone ====\n\n");
+    int centro_cone_x = 2;
     for (int i = 0; i < 5; i++)
     {
         for (int j = 0; j < 5; j++)
         {
-            matrizCone[i][j];
-            printf("%d ", matrizCone[i][j]);
-        }   
-        printf("\n");
-    }
-    printf("\n");
-
+            if((j >= centro_cone_x - i && j <= centro_cone_x + i)&&(i<= 2)){
+                matrizCone[i][j] = ATAQUE;
+                
+            } else { 
+                matrizCone[i][j] = 0; }
+                printf("%d ", matrizCone[i][j]);
+                
+        }printf("\n");
+    } printf("\n");
 
     //========================================================       
     // Habilidade Cruz
@@ -298,31 +294,20 @@ int main() {
     printf("==== Matriz Octaedro ====\n\n");
     int matrizOctaedro[5][5];
     int octa_y = 2, octa_x = 2;
-    for (int i = 0; i < 5; i++)
-    {
-        for (int j = 0; j < 5; j++)
-        {
-            matrizOctaedro[i][j] = 0;
-        }
-    }
-   
-    printf("\n");
 
-    for (int i = 0; i < 5; i++)
-    {
-        for (int j = 0; j < 5; j++)
-        {
-            if((i== octa_y && j== octa_x)||
-                (i== octa_y -1 && j== octa_x) ||
-               ((i== octa_y && j== octa_x -1) || (i== octa_y && j== octa_x +1 ))||
-               (i== octa_y +1 && j== octa_x)){
+    for (int i = 0; i < 5; i++) 
+    {   for (int j = 0; j < 5; j++) 
+        { matrizOctaedro[i][j] = 0;}
+    }
+
+    for (int i = 0; i < 5; i++) 
+    {   for (int j = 0; j < 5; j++) 
+        {   if (abs(i - octa_y) + abs(j - octa_x) <= 2) {
                 matrizOctaedro[i][j] = ATAQUE;
-            } else {
-                matrizOctaedro[i][j] = 0;
             }
             printf("%d ", matrizOctaedro[i][j]);
-        } printf("\n");
-        
+        }
+        printf("\n");
     } printf("\n");
     
         
