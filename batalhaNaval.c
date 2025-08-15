@@ -226,92 +226,105 @@ int main() {
 
     // Nível Mestre - Habilidades Especiais com Matrizes
    //========================================================       
-// Tabuleiro de Habilidades
+    // Habilidade Cone
 
-int matrizHabilidade[LINHAS][COLUNAS];
+    int matrizCone[5][5];
 
-for (int i = 0; i < LINHAS; i++)
-{   matrizHabilidade[i][0] = i + 1;
-    for (int j = 1; j < COLUNAS; j++)
-    {
-        matrizHabilidade[i][j] = 0;
-    }
-}
-//========================================================       
-// Habilidade Cone
-
-int cone_x = 4, cone_y = 0; //Coordenada do inicio da Habilidade
-
-for (int i = 0; i < 1; i++){
-    matrizHabilidade[cone_y][cone_x] = ATAQUE;
-    for (int j = 0; j < 3; j++)
-    {
-        matrizHabilidade[cone_y+1][(cone_x-1)+j] = ATAQUE;
-        for (int k = 0; k < 5; k++)
+    for (int i = 0; i < 5; i++)
+    {   matrizCone[i][0] = 0;
+        for (int j = 0; j < 5; j++) 
         {
-            matrizHabilidade[cone_y+2][(cone_x-2)+k] = ATAQUE;
-        } 
+        matrizCone[i][j] = 0;
+        }
+        
     }
-}
 
-//========================================================       
-// Habilidade Cruz
+    int cone_x = 2, cone_y = 1; //Coordenada do inicio da Habilidade
 
-int cruz_y = 7, cruz_x = 7; //Coordenada do centro da Habilidade
-
-for (int i = 0; i < 1; i++)
-{   matrizHabilidade[cruz_y-3][cruz_x] = ATAQUE;
-    for (int j = 1; j < 2; j++)
-    {   matrizHabilidade[(cruz_y-3) + j][cruz_x] = ATAQUE;
-        for (int k = 0; k < 5; k++)
-        {   matrizHabilidade[cruz_y-1][(cruz_x-2)+k] = ATAQUE;
-            for (int l = 5; l < 6; l++)
-            {   matrizHabilidade[cruz_y][cruz_x] = ATAQUE;
-                for (int m = 6; m < 7; m++)
-                {   matrizHabilidade[cruz_y+1][cruz_x] = ATAQUE; 
-                }
+    for (int i = 0; i < 1; i++){
+        matrizCone[cone_y][cone_x] = ATAQUE;
+        for (int j = 0; j < 3; j++)
+        {
+            matrizCone[cone_y+1][(cone_x-1)+j] = ATAQUE;
+            for (int k = 0; k < 5; k++)
+            {
+                matrizCone[cone_y+2][(cone_x-2)+k] = ATAQUE;
             } 
         }
     }
-}
-
-//========================================================       
-// Habilidade Octaedro
-
-int octa_y = 6, octa_x = 2; //Coordenada do centro da Habilidade
-
-for (int i = 0; i < 1; i++)
-{   matrizHabilidade[octa_y-1][octa_x] = ATAQUE;
-    for (int j = 1; j < 4; j++)
-    {   matrizHabilidade[octa_y][(octa_x-2)+j] = ATAQUE;
-        for (int k = 4; k < 5; k++)
-        {   matrizHabilidade[(octa_y+1)][octa_x] = ATAQUE;
-        }
-    } 
-}
-
-//========================================================       
-// Apresentação do tabuleiro de Habilidades preenchido
-
-printf("==== Tabuleiro Habilidades ====\n\n");
-
-for (int i = 0; i < LETRAS; i++)
-{
-    printf("%c ", letras[i]);
-}
-printf("\n");
-
-for (int i = 0; i < LINHAS; i++)
-{
-    for (int j = 0; j < COLUNAS; j++)
+    printf("==== Habilidade Cone ====\n\n");
+    for (int i = 0; i < 5; i++)
     {
-        printf("%d ", matrizHabilidade[i][j]);
+        for (int j = 0; j < 5; j++)
+        {
+            matrizCone[i][j];
+            printf("%d ", matrizCone[i][j]);
+        }   
+        printf("\n");
     }
     printf("\n");
-}
-printf("\n");
 
+
+    //========================================================       
+    // Habilidade Cruz
+    int matrizCruz[7][7];
+    for (int i = 0; i < 7; i++)
+    {   for (int j = 0; j < 7; j++)
+        {
+            matrizCruz[i][j] = 0;
+        }      
+    }
+    int cruz_y = 3, cruz_x = 3; //Coordenada do centro da Habilidade
+    printf("==== Matriz Cruz ====\n\n");
+
+    for (int i = 0; i < 7; i++) {
+        for (int j = 0; j < 7; j++) {
+            // Se estiver na mesma linha central OU coluna central, marca ATAQUE
+            if (i == cruz_y || j == cruz_x) {
+                matrizCruz[i][j] = ATAQUE;
+            } else {
+                matrizCruz[i][j] = 0;
+            }
+
+            
+            printf("%d ", matrizCruz[i][j]);
+        }
+        printf("\n");
+    }
+    printf("\n");
+
+//========================================================       
+    // Habilidade Octaedro
+    printf("==== Matriz Octaedro ====\n\n");
+    int matrizOctaedro[5][5];
+    int octa_y = 2, octa_x = 2;
+    for (int i = 0; i < 5; i++)
+    {
+        for (int j = 0; j < 5; j++)
+        {
+            matrizOctaedro[i][j] = 0;
+        }
+    }
+   
+    printf("\n");
+
+    for (int i = 0; i < 5; i++)
+    {
+        for (int j = 0; j < 5; j++)
+        {
+            if((i== octa_y && j== octa_x)||
+                (i== octa_y -1 && j== octa_x) ||
+               ((i== octa_y && j== octa_x -1) || (i== octa_y && j== octa_x +1 ))||
+               (i== octa_y +1 && j== octa_x)){
+                matrizOctaedro[i][j] = ATAQUE;
+            } else {
+                matrizOctaedro[i][j] = 0;
+            }
+            printf("%d ", matrizOctaedro[i][j]);
+        } printf("\n");
+        
+    } printf("\n");
     
-
-    return 0;
+        
+        return 0;
 }
