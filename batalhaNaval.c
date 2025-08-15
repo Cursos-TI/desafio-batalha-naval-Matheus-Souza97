@@ -8,6 +8,7 @@
 #define COLUNAS 11
 #define TAMANHO 3
 #define EMBARCACAO 3
+#define ATAQUE 1
 
 int main() {
     // Nível Novato - Posicionamento dos Navios
@@ -199,7 +200,7 @@ int main() {
 //========================================================
 
 //Posiciona embarcação na diagonal secundaria
-    int subtracao_coldiag2 = 0;
+    
     for (int i = 0; i < TAMANHO; i++)
     {
         numeros[lin_diag2 + i][col_diag2 - i] = EMBARCACAO;  
@@ -224,25 +225,93 @@ int main() {
     printf("\n");
 
     // Nível Mestre - Habilidades Especiais com Matrizes
-    // Sugestão: Crie matrizes para representar habilidades especiais como cone, cruz, e octaedro.
-    // Sugestão: Utilize estruturas de repetição aninhadas para preencher as áreas afetadas por essas habilidades no tabuleiro.
-    // Sugestão: Exiba o tabuleiro com as áreas afetadas, utilizando 0 para áreas não afetadas e 1 para áreas atingidas.
+   //========================================================       
+// Tabuleiro de Habilidades
 
-    // Exemplos de exibição das habilidades:
-    // Exemplo para habilidade em cone:
-    // 0 0 1 0 0
-    // 0 1 1 1 0
-    // 1 1 1 1 1
+int matrizHabilidade[LINHAS][COLUNAS];
+
+for (int i = 0; i < LINHAS; i++)
+{   matrizHabilidade[i][0] = i + 1;
+    for (int j = 1; j < COLUNAS; j++)
+    {
+        matrizHabilidade[i][j] = 0;
+    }
+}
+//========================================================       
+// Habilidade Cone
+
+int cone_x = 4, cone_y = 0; //Coordenada do inicio da Habilidade
+
+for (int i = 0; i < 1; i++){
+    matrizHabilidade[cone_y][cone_x] = ATAQUE;
+    for (int j = 0; j < 3; j++)
+    {
+        matrizHabilidade[cone_y+1][(cone_x-1)+j] = ATAQUE;
+        for (int k = 0; k < 5; k++)
+        {
+            matrizHabilidade[cone_y+2][(cone_x-2)+k] = ATAQUE;
+        } 
+    }
+}
+
+//========================================================       
+// Habilidade Cruz
+
+int cruz_y = 7, cruz_x = 7; //Coordenada do centro da Habilidade
+
+for (int i = 0; i < 1; i++)
+{   matrizHabilidade[cruz_y-3][cruz_x] = ATAQUE;
+    for (int j = 1; j < 2; j++)
+    {   matrizHabilidade[(cruz_y-3) + j][cruz_x] = ATAQUE;
+        for (int k = 0; k < 5; k++)
+        {   matrizHabilidade[cruz_y-1][(cruz_x-2)+k] = ATAQUE;
+            for (int l = 5; l < 6; l++)
+            {   matrizHabilidade[cruz_y][cruz_x] = ATAQUE;
+                for (int m = 6; m < 7; m++)
+                {   matrizHabilidade[cruz_y+1][cruz_x] = ATAQUE; 
+                }
+            } 
+        }
+    }
+}
+
+//========================================================       
+// Habilidade Octaedro
+
+int octa_y = 6, octa_x = 2; //Coordenada do centro da Habilidade
+
+for (int i = 0; i < 1; i++)
+{   matrizHabilidade[octa_y-1][octa_x] = ATAQUE;
+    for (int j = 1; j < 4; j++)
+    {   matrizHabilidade[octa_y][(octa_x-2)+j] = ATAQUE;
+        for (int k = 4; k < 5; k++)
+        {   matrizHabilidade[(octa_y+1)][octa_x] = ATAQUE;
+        }
+    } 
+}
+
+//========================================================       
+// Apresentação do tabuleiro de Habilidades preenchido
+
+printf("==== Tabuleiro Habilidades ====\n\n");
+
+for (int i = 0; i < LETRAS; i++)
+{
+    printf("%c ", letras[i]);
+}
+printf("\n");
+
+for (int i = 0; i < LINHAS; i++)
+{
+    for (int j = 0; j < COLUNAS; j++)
+    {
+        printf("%d ", matrizHabilidade[i][j]);
+    }
+    printf("\n");
+}
+printf("\n");
+
     
-    // Exemplo para habilidade em octaedro:
-    // 0 0 1 0 0
-    // 0 1 1 1 0
-    // 0 0 1 0 0
-
-    // Exemplo para habilidade em cruz:
-    // 0 0 1 0 0
-    // 1 1 1 1 1
-    // 0 0 1 0 0
 
     return 0;
 }
